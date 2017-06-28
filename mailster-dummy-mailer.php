@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Mailster Dummy Mailer
-Plugin URI: http://rxa.li/mailster?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer
+Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer
 Description: A Dummy Mailer for Mailster
 Version: 1.0
-Author: revaxarts.com
+Author: EverPress
 Author URI: https://mailster.co
 Text Domain: mailster-dummy-mailer
 License: GPLv2 or later
