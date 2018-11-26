@@ -2,7 +2,7 @@
 Contributors: everpress, revaxarts
 Tags: mailer, dummymailer, mailster, newsletter, email, revaxarts
 Requires at least: 3.8
-Tested up to: 4.8
+Tested up to: 4.9
 Stable tag: 1.0
 License: GPLv2 or later
 Author: EverPress
