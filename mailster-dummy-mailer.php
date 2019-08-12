@@ -22,7 +22,7 @@ class MailsterDummyMailer {
 	public function __construct() {
 
 		$this->plugin_path = plugin_dir_path( __FILE__ );
-		$this->plugin_url = plugin_dir_url( __FILE__ );
+		$this->plugin_url  = plugin_dir_url( __FILE__ );
 
 		register_activation_hook( __FILE__, array( &$this, 'activate' ) );
 		register_deactivation_hook( __FILE__, array( &$this, 'deactivate' ) );
@@ -43,13 +43,13 @@ class MailsterDummyMailer {
 		if ( function_exists( 'mailster' ) ) {
 
 			$defaults = array(
-				'dummymailer_admin_notice' => true,
-				'dummymailer_simulate' => true,
-				'dummymailer_openrate' => 50,
-				'dummymailer_clickrate' => 20,
-				'dummymailer_unsubscriberate' => 2,
-				'dummymailer_bouncerate' => 0.4,
-				'dummymailer_successrate' => 100,
+				'dummymailer_admin_notice'      => true,
+				'dummymailer_simulate'          => true,
+				'dummymailer_openrate'          => 50,
+				'dummymailer_clickrate'         => 20,
+				'dummymailer_unsubscriberate'   => 2,
+				'dummymailer_bouncerate'        => 0.4,
+				'dummymailer_successrate'       => 100,
 				'dummymailer_campaignerrorrate' => 0,
 			);
 
@@ -138,7 +138,7 @@ class MailsterDummyMailer {
 
 		switch ( $untranslated_text ) {
 			case 'Message sent. Check your inbox!':
-			return __( 'You are using the Dummy Mailer, no email has been sent!', 'mailster-dummy-mailer' );
+				return __( 'You are using the Dummy Mailer, no email has been sent!', 'mailster-dummy-mailer' );
 		}
 
 		return $translated_text;
@@ -152,9 +152,10 @@ class MailsterDummyMailer {
 		switch ( $screen->parent_file ) {
 			case 'edit.php?post_type=newsletter':
 				if ( mailster_option( 'dummymailer_admin_notice' ) ) : ?>
-					<div class="error"><p><?php _e( 'All outgoing mails and statistics are simulated so do not expect anything in your inbox!', 'mailster-dummy-mailer' ) ?></p></div>
-					<?php endif;
-			break;
+					<div class="error"><p><?php _e( 'All outgoing mails and statistics are simulated so do not expect anything in your inbox!', 'mailster-dummy-mailer' ); ?></p></div>
+					<?php
+					endif;
+				break;
 		}
 
 	}
@@ -180,13 +181,13 @@ class MailsterDummyMailer {
 		}
 
 		define( 'MAILSTER_DUMMYMAILER_SIMULATE', true );
-		$now = time();
+		$now        = time();
 		$timeoffset = get_option( 'gmt_offset' ) * 3600;
 
-		$openrate = mailster_option( 'dummymailer_openrate' );
-		$clickrate = mailster_option( 'dummymailer_clickrate' );
+		$openrate        = mailster_option( 'dummymailer_openrate' );
+		$clickrate       = mailster_option( 'dummymailer_clickrate' );
 		$unsubscriberate = mailster_option( 'dummymailer_unsubscriberate' );
-		$bouncerate = mailster_option( 'dummymailer_bouncerate' );
+		$bouncerate      = mailster_option( 'dummymailer_bouncerate' );
 
 		foreach ( $campaigns as $i => $campaign ) {
 
@@ -195,8 +196,8 @@ class MailsterDummyMailer {
 				continue;
 			}
 
-			$click = mailster( 'campaigns' )->get_click_rate( $campaign->ID );
-			$bounces = mailster( 'campaigns' )->get_bounce_rate( $campaign->ID );
+			$click       = mailster( 'campaigns' )->get_click_rate( $campaign->ID );
+			$bounces     = mailster( 'campaigns' )->get_bounce_rate( $campaign->ID );
 			$unsubscribe = mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID );
 
 			$links = mailster( 'campaigns' )->get_links( $campaign->ID );
@@ -269,49 +270,49 @@ class MailsterDummyMailer {
 		$clients = array(
 
 			array(
-				'client' => 'Thunderbird',
+				'client'  => 'Thunderbird',
 				'version' => rand( 23, 26 ),
-				'type' => 'desktop',
+				'type'    => 'desktop',
 			),
 			array(
-				'client' => 'Gmail App (Android)',
+				'client'  => 'Gmail App (Android)',
 				'version' => '',
-				'type' => 'mobile',
+				'type'    => 'mobile',
 			),
 			array(
-				'client' => 'Gmail',
+				'client'  => 'Gmail',
 				'version' => '',
-				'type' => 'webmail',
+				'type'    => 'webmail',
 			),
 			array(
-				'client' => 'WebClient (unknown)',
+				'client'  => 'WebClient (unknown)',
 				'version' => '',
-				'type' => 'webmail',
+				'type'    => 'webmail',
 			),
 			array(
-				'client' => 'iPad',
+				'client'  => 'iPad',
 				'version' => 'iOS ' . rand( 6, 8 ),
-				'type' => 'mobile',
+				'type'    => 'mobile',
 			),
 			array(
-				'client' => 'iPhone',
+				'client'  => 'iPhone',
 				'version' => 'iOS ' . rand( 6, 8 ),
-				'type' => 'mobile',
+				'type'    => 'mobile',
 			),
 			array(
-				'client' => 'Microsoft Outlook',
+				'client'  => 'Microsoft Outlook',
 				'version' => rand( 2010, 2015 ),
-				'type' => 'desktop',
+				'type'    => 'desktop',
 			),
 			array(
-				'client' => 'Microsoft Outlook',
+				'client'  => 'Microsoft Outlook',
 				'version' => '2003-2007',
-				'type' => 'desktop',
+				'type'    => 'desktop',
 			),
 			array(
-				'client' => 'Windows Live Mail',
+				'client'  => 'Windows Live Mail',
 				'version' => '',
-				'type' => 'desktop',
+				'type'    => 'desktop',
 			),
 		);
 
@@ -362,9 +363,9 @@ class MailsterDummyMailer {
 	 */
 	public function dosend( $mailobject ) {
 
-		$successrate = mailster_option( 'dummymailer_successrate' );
+		$successrate       = mailster_option( 'dummymailer_successrate' );
 		$campaignerrorrate = mailster_option( 'dummymailer_campaignerrorrate' );
-		$mailobject->sent = $this->rand( $successrate );
+		$mailobject->sent  = $this->rand( $successrate );
 		if ( ! $mailobject->sent ) {
 			if ( $this->rand( $campaignerrorrate ) ) {
 				$mailobject->last_error = new Exception( 'DummyMailer Campaign Error' );
@@ -435,44 +436,44 @@ class MailsterDummyMailer {
 
 		$verified = mailster_option( MAILSTER_DUMMYMAILER_ID . '_verified' );
 
-?>
+		?>
 
-		<p class="description"><?php _e( 'The Dummy Mailer doesn\'t send any real mail rather it simulates a real environment. The rates you can define will be used to simulate the campaigns', 'mailster-dummy-mailer' ) ?></p>
+		<p class="description"><?php _e( 'The Dummy Mailer doesn\'t send any real mail rather it simulates a real environment. The rates you can define will be used to simulate the campaigns', 'mailster-dummy-mailer' ); ?></p>
 		<table class="form-table">
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Admin Notice', 'mailster-dummy-mailer' ) ?>
+				<th scope="row"><?php _e( 'Admin Notice', 'mailster-dummy-mailer' ); ?>
 				</th>
-				<td><label><input type="hidden" name="mailster_options[dummymailer_admin_notice]" value="0"><input type="checkbox" name="mailster_options[dummymailer_admin_notice]" value="1" <?php checked( mailster_option( 'dummymailer_admin_notice' ) ) ?>> <?php _e( 'Display Admin Notice on the Newsletter page', 'mailster-dummy-mailer' ) ?></label>
+				<td><label><input type="hidden" name="mailster_options[dummymailer_admin_notice]" value="0"><input type="checkbox" name="mailster_options[dummymailer_admin_notice]" value="1" <?php checked( mailster_option( 'dummymailer_admin_notice' ) ); ?>> <?php _e( 'Display Admin Notice on the Newsletter page', 'mailster-dummy-mailer' ); ?></label>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Simulate Rates', 'mailster-dummy-mailer' ) ?>
+				<th scope="row"><?php _e( 'Simulate Rates', 'mailster-dummy-mailer' ); ?>
 				</th>
-				<td><label><input type="hidden" name="mailster_options[dummymailer_simulate]" value="0"><input type="checkbox" name="mailster_options[dummymailer_simulate]" value="1" <?php checked( mailster_option( 'dummymailer_simulate' ) ) ?>> <?php _e( 'Simulate Rates based on the settings below', 'mailster-dummy-mailer' ) ?></label>
+				<td><label><input type="hidden" name="mailster_options[dummymailer_simulate]" value="0"><input type="checkbox" name="mailster_options[dummymailer_simulate]" value="1" <?php checked( mailster_option( 'dummymailer_simulate' ) ); ?>> <?php _e( 'Simulate Rates based on the settings below', 'mailster-dummy-mailer' ); ?></label>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Rates', 'mailster-dummy-mailer' ) ?>
-				<p class="description"><?php _e( 'Define the rates which should get simulated', 'mailster-dummy-mailer' ) ?></p>
+				<th scope="row"><?php _e( 'Rates', 'mailster-dummy-mailer' ); ?>
+				<p class="description"><?php _e( 'Define the rates which should get simulated', 'mailster-dummy-mailer' ); ?></p>
 				</th>
 				<td>
-				<div class="mailster_text"><label><?php _e( 'Open Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_openrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_openrate' ); ?>">% </div>
-				<div class="mailster_text"><label><?php _e( 'Click Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_clickrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_clickrate' ); ?>">% </div>
-				<div class="mailster_text"><label><?php _e( 'Unsubscribe Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_unsubscriberate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_unsubscriberate' ); ?>">% </div>
-				<div class="mailster_text"><label><?php _e( 'Bounce Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_bouncerate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_bouncerate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Open Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_openrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_openrate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Click Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_clickrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_clickrate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Unsubscribe Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_unsubscriberate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_unsubscriberate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Bounce Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_bouncerate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_bouncerate' ); ?>">% </div>
 				</td>
 			</tr>
 			<tr valign="top">
-				<th scope="row"><?php _e( 'Error Rates', 'mailster-dummy-mailer' ) ?>
+				<th scope="row"><?php _e( 'Error Rates', 'mailster-dummy-mailer' ); ?>
 				</th>
 				<td>
-				<div class="mailster_text"><label><?php _e( 'Success Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_successrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_successrate' ); ?>">% </div>
-				<div class="mailster_text"><label><?php _e( 'Campaign Error Rate', 'mailster-dummy-mailer' ) ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_campaignerrorrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_campaignerrorrate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Success Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_successrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_successrate' ); ?>">% </div>
+				<div class="mailster_text"><label><?php _e( 'Campaign Error Rate', 'mailster-dummy-mailer' ); ?>:</label> <input type="number" min="0" max="100" step="0.1" name="mailster_options[dummymailer_campaignerrorrate]" class="postform textright" value="<?php echo mailster_option( 'dummymailer_campaignerrorrate' ); ?>">% </div>
 				</td>
 			</tr>
 		</table>
 
-	<?php
+		<?php
 
 	}
 

@@ -1,8 +1,8 @@
 === Mailster DummyMailer ===
-Contributors: everpress, revaxarts
+Contributors: everpress
 Tags: mailer, dummymailer, mailster, newsletter, email, revaxarts
 Requires at least: 3.8
-Tested up to: 5.0
+Tested up to: 5.2
 Stable tag: 1.0
 License: GPLv2 or later
 Author: EverPress
