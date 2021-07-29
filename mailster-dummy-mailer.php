@@ -3,15 +3,15 @@
 Plugin Name: Mailster Dummy Mailer
 Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=plugin
 Description: A Dummy Mailer for Mailster
-Version: 1.0
+Version: 1.1
 Author: EverPress
 Author URI: https://mailster.co
 Text Domain: mailster-dummy-mailer
 License: GPLv2 or later
 */
 
-define( 'MAILSTER_DUMMYMAILER_VERSION', '1.0' );
-define( 'MAILSTER_DUMMYMAILER_REQUIRED_VERSION', '2.2' );
+define( 'MAILSTER_DUMMYMAILER_VERSION', '1.1' );
+define( 'MAILSTER_DUMMYMAILER_REQUIRED_VERSION', '2.4' );
 define( 'MAILSTER_DUMMYMAILER_ID', 'dummymailer' );
 
 class MailsterDummyMailer {
@@ -106,7 +106,7 @@ class MailsterDummyMailer {
 
 				add_filter( 'mailster_subscriber_errors', array( &$this, 'subscriber_errors' ) );
 
-				add_action( 'mailster_cron_worker', array( &$this, 'simulate' ), 1 );
+				add_action( 'mailster_cron_worker', array( &$this, 'simulate' ), 1000 );
 				add_action( 'admin_notices', array( &$this, 'admin_notice' ) );
 
 				add_action( 'mailster_initsend', array( &$this, 'initsend' ) );
@@ -161,13 +161,6 @@ class MailsterDummyMailer {
 	}
 
 
-	/**
-	 * simulates opens, clicks, unsubscribes and bounces
-	 *
-	 * @access public
-	 * @param mixed $mailobject
-	 * @return void
-	 */
 	public function simulate() {
 
 		if ( ! mailster_option( 'dummymailer_simulate' ) ) {
@@ -182,7 +175,7 @@ class MailsterDummyMailer {
 
 		define( 'MAILSTER_DUMMYMAILER_SIMULATE', true );
 		$now        = time();
-		$timeoffset = get_option( 'gmt_offset' ) * 3600;
+		$timeoffset = mailster( 'helper' )->gmt_offset( true );
 
 		$openrate        = mailster_option( 'dummymailer_openrate' );
 		$clickrate       = mailster_option( 'dummymailer_clickrate' );
@@ -191,20 +184,23 @@ class MailsterDummyMailer {
 
 		foreach ( $campaigns as $i => $campaign ) {
 
+			$sent = mailster( 'campaigns' )->get_sent_rate( $campaign->ID );
+
+			if ( ! $sent ) {
+				continue;
+			}
+
 			$open = mailster( 'campaigns' )->get_open_rate( $campaign->ID );
+
 			if ( $open * 100 >= $openrate ) {
 				continue;
 			}
 
-			$click       = mailster( 'campaigns' )->get_click_rate( $campaign->ID );
-			$bounces     = mailster( 'campaigns' )->get_bounce_rate( $campaign->ID );
-			$unsubscribe = mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID );
-
 			$links = mailster( 'campaigns' )->get_links( $campaign->ID );
 
-			$links = array_values( array_diff( $links, array( '#' ) ) );
+			$links = array_values( array_filter( array_diff( $links, array( '#' ) ) ) );
 
-			$explicitopen = $this->rand( 50 );
+			$explicitopen = $this->rand( 33 );
 
 			$subscribers = mailster( 'campaigns' )->get_sent_subscribers( $campaign->ID );
 
@@ -225,17 +221,16 @@ class MailsterDummyMailer {
 					if ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
 						do_action( 'mailster_open', $subscriber, $campaign->ID, false );
 
-						if ( $this->rand( $clickrate ) && $click * 100 < $clickrate ) {
+						if ( $this->rand( $clickrate ) && mailster( 'campaigns' )->get_click_rate( $campaign->ID ) * 100 < $clickrate ) {
 							do_action( 'mailster_click', $subscriber, $campaign->ID, $links[ array_rand( $links ) ], false );
 						}
 
-						if ( $this->rand( $unsubscriberate ) && $unsubscribe * 100 < $unsubscriberate ) {
+						if ( $this->rand( $unsubscriberate ) && mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID ) * 100 < $unsubscriberate ) {
 							$unsublink = mailster()->get_unsubscribe_link( $campaign->ID );
 							do_action( 'mailster_click', $subscriber, $campaign->ID, $unsublink, false );
 							mailster( 'subscribers' )->unsubscribe( $subscriber, $campaign->ID );
 						}
-					}
-					if ( $this->rand( $bouncerate ) && $bounces * 100 < $bouncerate ) {
+					} elseif ( $this->rand( $bouncerate ) && mailster( 'campaigns' )->get_bounce_rate( $campaign->ID ) * 100 < $bouncerate ) {
 						mailster( 'subscribers' )->bounce( $subscriber, $campaign->ID, true );
 					}
 				}
@@ -249,29 +244,19 @@ class MailsterDummyMailer {
 	}
 
 
-	/**
-	 *
-	 *
-	 * @return unknown
-	 */
 	public function random_ip() {
 
 		return defined( 'MAILSTER_DUMMYMAILER_SIMULATE' ) ? rand( 1, 200 ) . '.' . rand( 1, 255 ) . '.' . rand( 1, 255 ) . '.' . rand( 1, 255 ) : null;
 	}
 
 
-	/**
-	 *
-	 *
-	 * @return unknown
-	 */
 	public function get_user_client() {
 
 		$clients = array(
 
 			array(
 				'client'  => 'Thunderbird',
-				'version' => rand( 23, 26 ),
+				'version' => rand( 23, 70 ),
 				'type'    => 'desktop',
 			),
 			array(
@@ -291,17 +276,17 @@ class MailsterDummyMailer {
 			),
 			array(
 				'client'  => 'iPad',
-				'version' => 'iOS ' . rand( 6, 8 ),
+				'version' => 'iOS ' . rand( 8, 14 ),
 				'type'    => 'mobile',
 			),
 			array(
 				'client'  => 'iPhone',
-				'version' => 'iOS ' . rand( 6, 8 ),
+				'version' => 'iOS ' . rand( 8, 14 ),
 				'type'    => 'mobile',
 			),
 			array(
 				'client'  => 'Microsoft Outlook',
-				'version' => rand( 2010, 2015 ),
+				'version' => rand( 2010, 2016 ),
 				'type'    => 'desktop',
 			),
 			array(
