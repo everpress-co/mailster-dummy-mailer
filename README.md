@@ -9,9 +9,9 @@ License: GPLv2 or later
 
 ## Description
 
-> This Plugin requires [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme)
-
 A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme). Requires at least version 2 of the Mailster Plugin
+
+> This Plugin requires [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme)
 
 ## Installation
 
