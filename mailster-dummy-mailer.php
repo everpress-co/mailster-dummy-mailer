@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Mailster Dummy Mailer
-Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=plugin
+Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=plugin&utm_term=Dummy+Mailer
 Description: A Dummy Mailer for Mailster
 Version: 1.2
 Author: EverPress

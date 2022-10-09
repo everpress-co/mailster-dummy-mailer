@@ -1,17 +1,17 @@
 # Mailster DummyMailer
 
-Contributors: everpress  
+Contributors: everpress, xaverb  
 Tags: mailer, dummymailer, mailster, newsletter, email  
-Requires at least: 3.8  
+Requires at least: 4.3  
 Tested up to: 6.0  
 Stable tag: 1.2
 License: GPLv2 or later
 
 ## Description
 
-A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme). Requires at least version 2 of the Mailster Plugin
+A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=readme&utm_term=Dummy+Mailer). Requires at least version 3 of the Mailster Plugin
 
-> This Plugin requires [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme)
+> This Plugin requires [Mailster Newsletter Plugin for WordPress](https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=readme&utm_term=Dummy+Mailer)
 
 ## Installation
 
@@ -37,6 +37,6 @@ A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailst
 
 ## Additional Info
 
-This Plugin requires [Mailster](https://mailster.co/?utm_campaign=wporg&utm_source=Mailster+Dummy+Mailer&utm_medium=readme).
+This Plugin requires [Mailster](https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=readme&utm_term=Dummy+Mailer).
 
 Please note the DummyMailer may require a lot of memory so having at least 256MB of RAM enabled is recommended!
