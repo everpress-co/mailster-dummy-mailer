@@ -1,10 +1,10 @@
 # Mailster DummyMailer
 
-Contributors: everpress, xaverb  
+Contributors: everpress, mailster, xaverb  
 Tags: mailer, dummymailer, mailster, newsletter, email  
-Requires at least: 4.3  
-Tested up to: 6.0  
-Stable tag: 1.2
+Requires at least: 6.0  
+Tested up to: 6.5  
+Stable tag: 1.2.1
 License: GPLv2 or later
 
 ## Description
@@ -21,17 +21,21 @@ A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailst
 
 ## Changelog
 
+### 1.2.1
+
+- added: support for workflows from Mailster 4.0
+
 ### 1.2
 
--   code refactor
+- code refactor
 
 ### 1.1
 
--   updates on rate handling
+- updates on rate handling
 
 ### 1.0
 
--   initial release
+- initial release
 
 ## Upgrade Notice
 

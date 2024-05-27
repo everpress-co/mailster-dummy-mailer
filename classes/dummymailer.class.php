@@ -153,15 +153,17 @@ class MailsterDummyMailer {
 			return false;
 		}
 
-		$campaigns = mailster( 'campaigns' )->get_campaigns( array( 'post_status' => array( 'finished', 'active', 'paused' ) ) );
+		$campaigns = mailster( 'campaigns' )->get_campaigns( array( 'post_status' => array( 'finished', 'active', 'paused', 'workflow' ) ) );
 
 		if ( empty( $campaigns ) ) {
 			return;
 		}
 
-		define( 'MAILSTER_DUMMYMAILER_SIMULATE', true );
-		$now        = time();
-		$timeoffset = mailster( 'helper' )->gmt_offset( true );
+		if ( ! defined( 'MAILSTER_DUMMYMAILER_SIMULATE' ) ) {
+			define( 'MAILSTER_DUMMYMAILER_SIMULATE', true );
+		}
+
+		$now = time();
 
 		$openrate        = mailster_option( 'dummymailer_openrate' );
 		$clickrate       = mailster_option( 'dummymailer_clickrate' );
