@@ -17,6 +17,7 @@
 		"src",
 		"vendor",
 		"includes",
+		"classes",
 		"assets",
 		"mailster-dummy-mailer.php"
 	],
