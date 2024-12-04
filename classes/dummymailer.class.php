@@ -1,9 +1,13 @@
 <?php
 
-class MailsterDummyMailer {
+namespace EverPress\Mailster\DummyMailer;
+
+class Mailer {
 
 	private $plugin_path;
 	private $plugin_url;
+
+	private static $instance;
 
 	public function __construct() {
 
@@ -13,17 +17,19 @@ class MailsterDummyMailer {
 		register_activation_hook( MAILSTER_DUMMYMAILER_FILE, array( &$this, 'activate' ) );
 		register_deactivation_hook( MAILSTER_DUMMYMAILER_FILE, array( &$this, 'deactivate' ) );
 
-		load_plugin_textdomain( 'mailster-dummy-mailer' );
-
 		add_action( 'init', array( &$this, 'init' ) );
 	}
 
+	public static function instance() {
 
-	/**
-	 *
-	 *
-	 * @param unknown $network_wide
-	 */
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+
 	public function activate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -50,11 +56,7 @@ class MailsterDummyMailer {
 	}
 
 
-	/**
-	 *
-	 *
-	 * @param unknown $network_wide
-	 */
+
 	public function deactivate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -65,19 +67,13 @@ class MailsterDummyMailer {
 	}
 
 
-	/**
-	 * init function.
-	 *
-	 * init the plugin
-	 *
-	 * @access public
-	 * @return void
-	 */
 	public function init() {
 
 		if ( ! function_exists( 'mailster' ) ) {
 
 		} else {
+
+			load_plugin_textdomain( 'mailster-dummy-mailer' );
 
 			add_filter( 'mailster_delivery_methods', array( &$this, 'delivery_method' ) );
 			add_action( 'mailster_deliverymethod_tab_dummymailer', array( &$this, 'deliverytab' ) );
@@ -463,4 +459,3 @@ class MailsterDummyMailer {
 }
 
 
-new MailsterDummyMailer();
