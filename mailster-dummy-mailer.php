@@ -7,7 +7,7 @@ Plugin Name: Mailster Dummy Mailer
 Requires Plugins: mailster
 Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=plugin&utm_term=Dummy+Mailer
 Description: A Dummy Mailer for Mailster
-Version: 1.2.1
+Version: 1.2.2
 Author: EverPress
 Author URI: https://mailster.co
 Text Domain: mailster-dummy-mailer
