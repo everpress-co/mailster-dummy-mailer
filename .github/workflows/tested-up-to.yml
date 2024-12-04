@@ -1,0 +1,53 @@
+---
+name: "Update Tested Up To"
+
+on:
+  workflow_dispatch:
+
+permissions: write-all
+jobs:
+  tested-up-to:
+    name: "Update Tested Up To"
+    runs-on: 'ubuntu-latest'
+    outputs:
+      version: ${{ steps.read_version.outputs.version }}
+      wpversion: ${{ steps.read_version.outputs.wpversion }}
+      project_name: ${{ steps.zip_project.outputs.project_name }}
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🤔 Read version and project name from package.json
+        id: read_version
+        run: |
+          VERSION=$(jq -r '.version' < package.json)
+          PROJECT_NAME=$(jq -r '.name' < package.json)
+          echo "Version is $VERSION"
+          echo "Project name is $PROJECT_NAME"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "project_name=$PROJECT_NAME" >> $GITHUB_OUTPUT
+
+
+      - name: ✏️ Update Readme
+        run: |
+          WP_VERSION=$(curl -s https://api.wordpress.org/core/version-check/1.7/ | jq -r '.offers[0].current | split(".")[0:2] | join(".")')
+          echo "wpversion=$WP_VERSION" >> $GITHUB_OUTPUT
+          echo "WordPress version is $WP_VERSION"
+          FILE="README.md"
+          sed -i -E "s/^Tested up to:([[:space:]]*)[0-9]+\.[0-9]+(\.[0-9]+)?/Tested up to:\1$WP_VERSION/" "$FILE"
+          git add $FILE
+
+      - name: 🫸 Push to repo
+        run: |
+          if git status | grep "modified"; then
+            echo "Pushing to repo"
+            git config user.name github-actions
+            git config user.email github-actions@github.com 
+            git commit -m "Updated Stable version to to ${{ steps.read_version.outputs.wpversion }}"
+            git push
+          else
+            echo "Nothing to commit"
+          fi

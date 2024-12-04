@@ -1,9 +1,13 @@
 <?php
 
-class MailsterDummyMailer {
+namespace EverPress\Mailster\DummyMailer;
+
+class Mailer {
 
 	private $plugin_path;
 	private $plugin_url;
+
+	private static $instance;
 
 	public function __construct() {
 
@@ -13,17 +17,19 @@ class MailsterDummyMailer {
 		register_activation_hook( MAILSTER_DUMMYMAILER_FILE, array( &$this, 'activate' ) );
 		register_deactivation_hook( MAILSTER_DUMMYMAILER_FILE, array( &$this, 'deactivate' ) );
 
-		load_plugin_textdomain( 'mailster-dummy-mailer' );
-
 		add_action( 'init', array( &$this, 'init' ) );
 	}
 
+	public static function instance() {
 
-	/**
-	 *
-	 *
-	 * @param unknown $network_wide
-	 */
+		if ( ! self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
+
 	public function activate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -50,11 +56,7 @@ class MailsterDummyMailer {
 	}
 
 
-	/**
-	 *
-	 *
-	 * @param unknown $network_wide
-	 */
+
 	public function deactivate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -62,23 +64,16 @@ class MailsterDummyMailer {
 				mailster_update_option( 'deliverymethod', 'simple' );
 			}
 		}
-
 	}
 
 
-	/**
-	 * init function.
-	 *
-	 * init the plugin
-	 *
-	 * @access public
-	 * @return void
-	 */
 	public function init() {
 
 		if ( ! function_exists( 'mailster' ) ) {
 
 		} else {
+
+			load_plugin_textdomain( 'mailster-dummy-mailer' );
 
 			add_filter( 'mailster_delivery_methods', array( &$this, 'delivery_method' ) );
 			add_action( 'mailster_deliverymethod_tab_dummymailer', array( &$this, 'deliverytab' ) );
@@ -101,7 +96,6 @@ class MailsterDummyMailer {
 
 			}
 		}
-
 	}
 
 
@@ -143,7 +137,6 @@ class MailsterDummyMailer {
 					endif;
 				break;
 		}
-
 	}
 
 
@@ -205,22 +198,20 @@ class MailsterDummyMailer {
 					if ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
 						do_action( 'mailster_open', $subscriber, $campaign->ID, true );
 					}
-				} else {
-					if ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
+				} elseif ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
 						do_action( 'mailster_open', $subscriber, $campaign->ID, false );
 
-						if ( $this->rand( $clickrate ) && mailster( 'campaigns' )->get_click_rate( $campaign->ID ) * 100 < $clickrate ) {
-							do_action( 'mailster_click', $subscriber, $campaign->ID, $links[ array_rand( $links ) ], false );
-						}
-
-						if ( $this->rand( $unsubscriberate ) && mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID ) * 100 < $unsubscriberate ) {
-							$unsublink = mailster()->get_unsubscribe_link( $campaign->ID );
-							do_action( 'mailster_click', $subscriber, $campaign->ID, $unsublink, false );
-							mailster( 'subscribers' )->unsubscribe( $subscriber, $campaign->ID );
-						}
-					} elseif ( $this->rand( $bouncerate ) && mailster( 'campaigns' )->get_bounce_rate( $campaign->ID ) * 100 < $bouncerate ) {
-						mailster( 'subscribers' )->bounce( $subscriber, $campaign->ID, true );
+					if ( $this->rand( $clickrate ) && mailster( 'campaigns' )->get_click_rate( $campaign->ID ) * 100 < $clickrate ) {
+						do_action( 'mailster_click', $subscriber, $campaign->ID, $links[ array_rand( $links ) ], false );
 					}
+
+					if ( $this->rand( $unsubscriberate ) && mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID ) * 100 < $unsubscriberate ) {
+						$unsublink = mailster()->get_unsubscribe_link( $campaign->ID );
+						do_action( 'mailster_click', $subscriber, $campaign->ID, $unsublink, false );
+						mailster( 'subscribers' )->unsubscribe( $subscriber, $campaign->ID );
+					}
+				} elseif ( $this->rand( $bouncerate ) && mailster( 'campaigns' )->get_bounce_rate( $campaign->ID ) * 100 < $bouncerate ) {
+					mailster( 'subscribers' )->bounce( $subscriber, $campaign->ID, true );
 				}
 
 				if ( $j > ( $now - $meta['timestamp'] ) / 5 ) {
@@ -228,7 +219,6 @@ class MailsterDummyMailer {
 				}
 			}
 		}
-
 	}
 
 
@@ -290,7 +280,6 @@ class MailsterDummyMailer {
 		);
 
 		return (object) $clients[ array_rand( $clients ) ];
-
 	}
 
 
@@ -321,7 +310,6 @@ class MailsterDummyMailer {
 
 		// use pre_send from the main class
 		$mailobject->pre_send();
-
 	}
 
 
@@ -347,7 +335,6 @@ class MailsterDummyMailer {
 			}
 		} else {
 		}
-
 	}
 
 
@@ -447,7 +434,6 @@ class MailsterDummyMailer {
 		</table>
 
 		<?php
-
 	}
 
 
@@ -470,9 +456,6 @@ class MailsterDummyMailer {
 
 		return $options;
 	}
-
-
 }
 
 
-new MailsterDummyMailer();
