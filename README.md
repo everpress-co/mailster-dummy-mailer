@@ -3,7 +3,7 @@
 Contributors: everpress, mailster, xaverb  
 Tags: mailer, dummymailer, mailster, newsletter, email  
 Requires at least: 6.0  
-Tested up to: 6.7  
+Tested up to: 6.5  
 Stable tag: 1.2.2
 License: GPLv2 or later
 
