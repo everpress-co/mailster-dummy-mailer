@@ -11,6 +11,7 @@ permissions:
 
 jobs:
   tested-up-to:
+    name: 'Update Tested Up To'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
