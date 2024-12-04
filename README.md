@@ -23,6 +23,9 @@ A Dummy Mailer for the [Mailster Newsletter Plugin for WordPress](https://mailst
 
 ### 1.2.2
 
+- added: namespace
+- improved: loading of plugin
+
 ### 1.2.1
 
 - added: support for workflows from Mailster 4.0
