@@ -11,7 +11,6 @@ Text Domain: mailster-dummy-mailer
 License: GPLv2 or later
 */
 
-define( 'MAILSTER_DUMMYMAILER_VERSION', '1.2.1' );
 define( 'MAILSTER_DUMMYMAILER_REQUIRED_VERSION', '4.0' );
 define( 'MAILSTER_DUMMYMAILER_ID', 'dummymailer' );
 define( 'MAILSTER_DUMMYMAILER_FILE', __FILE__ );

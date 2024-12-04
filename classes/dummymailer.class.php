@@ -62,7 +62,6 @@ class MailsterDummyMailer {
 				mailster_update_option( 'deliverymethod', 'simple' );
 			}
 		}
-
 	}
 
 
@@ -101,7 +100,6 @@ class MailsterDummyMailer {
 
 			}
 		}
-
 	}
 
 
@@ -143,7 +141,6 @@ class MailsterDummyMailer {
 					endif;
 				break;
 		}
-
 	}
 
 
@@ -205,22 +202,20 @@ class MailsterDummyMailer {
 					if ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
 						do_action( 'mailster_open', $subscriber, $campaign->ID, true );
 					}
-				} else {
-					if ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
+				} elseif ( $this->rand( $openrate ) && $open * 100 < $openrate ) {
 						do_action( 'mailster_open', $subscriber, $campaign->ID, false );
 
-						if ( $this->rand( $clickrate ) && mailster( 'campaigns' )->get_click_rate( $campaign->ID ) * 100 < $clickrate ) {
-							do_action( 'mailster_click', $subscriber, $campaign->ID, $links[ array_rand( $links ) ], false );
-						}
-
-						if ( $this->rand( $unsubscriberate ) && mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID ) * 100 < $unsubscriberate ) {
-							$unsublink = mailster()->get_unsubscribe_link( $campaign->ID );
-							do_action( 'mailster_click', $subscriber, $campaign->ID, $unsublink, false );
-							mailster( 'subscribers' )->unsubscribe( $subscriber, $campaign->ID );
-						}
-					} elseif ( $this->rand( $bouncerate ) && mailster( 'campaigns' )->get_bounce_rate( $campaign->ID ) * 100 < $bouncerate ) {
-						mailster( 'subscribers' )->bounce( $subscriber, $campaign->ID, true );
+					if ( $this->rand( $clickrate ) && mailster( 'campaigns' )->get_click_rate( $campaign->ID ) * 100 < $clickrate ) {
+						do_action( 'mailster_click', $subscriber, $campaign->ID, $links[ array_rand( $links ) ], false );
 					}
+
+					if ( $this->rand( $unsubscriberate ) && mailster( 'campaigns' )->get_unsubscribe_rate( $campaign->ID ) * 100 < $unsubscriberate ) {
+						$unsublink = mailster()->get_unsubscribe_link( $campaign->ID );
+						do_action( 'mailster_click', $subscriber, $campaign->ID, $unsublink, false );
+						mailster( 'subscribers' )->unsubscribe( $subscriber, $campaign->ID );
+					}
+				} elseif ( $this->rand( $bouncerate ) && mailster( 'campaigns' )->get_bounce_rate( $campaign->ID ) * 100 < $bouncerate ) {
+					mailster( 'subscribers' )->bounce( $subscriber, $campaign->ID, true );
 				}
 
 				if ( $j > ( $now - $meta['timestamp'] ) / 5 ) {
@@ -228,7 +223,6 @@ class MailsterDummyMailer {
 				}
 			}
 		}
-
 	}
 
 
@@ -290,7 +284,6 @@ class MailsterDummyMailer {
 		);
 
 		return (object) $clients[ array_rand( $clients ) ];
-
 	}
 
 
@@ -321,7 +314,6 @@ class MailsterDummyMailer {
 
 		// use pre_send from the main class
 		$mailobject->pre_send();
-
 	}
 
 
@@ -347,7 +339,6 @@ class MailsterDummyMailer {
 			}
 		} else {
 		}
-
 	}
 
 
@@ -447,7 +438,6 @@ class MailsterDummyMailer {
 		</table>
 
 		<?php
-
 	}
 
 
@@ -470,8 +460,6 @@ class MailsterDummyMailer {
 
 		return $options;
 	}
-
-
 }
 
 
