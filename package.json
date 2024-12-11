@@ -22,7 +22,7 @@
 		"mailster-dummy-mailer.php"
 	],
 	"devDependencies": {
-		"@wordpress/env": "^10.13.0",
+		"@wordpress/env": "^10.14.0",
 		"@wordpress/scripts": "^30.6.0"
 	}
 }
