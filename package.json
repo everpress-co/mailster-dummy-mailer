@@ -19,7 +19,7 @@
 		"includes",
 		"classes",
 		"assets",
-		"mailster-dummy-mailer.php"
+		"*.php"
 	],
 	"devDependencies": {
 		"@wordpress/env": "^10.13.0",
