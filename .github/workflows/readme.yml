@@ -15,12 +15,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Convert README.md to WordPress readme.txt
+        uses: everpress-co/action-md2wp@main
+
       - uses: evrpress/action-wordpress-plugin-readme-screenshot-update@main
+
+      - name: Convert README.md to WordPress readme.txt
+        uses: everpress-co/action-md2wp@main
 
       - name: WordPress.org plugin asset/readme update
         uses: evrpress/action-wordpress-plugin-asset-update@develop
         env:
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
-          README_NAME: README.md
+          README_NAME: readme.txt
           IGNORE_OTHER_FILES: true
