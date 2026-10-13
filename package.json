@@ -21,7 +21,8 @@
 	},
 	"files": [
 		"*.php",
-		"classes"
+		"classes",
+		"readme.txt"
 	],
 	"devDependencies": {
 		"@wordpress/env": "^11.17.0",
