@@ -1,18 +1,19 @@
 <?php
+/**
+ * Plugin Name: Mailster Dummy Mailer
+ * Requires Plugins: mailster
+ * Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=plugin&utm_term=Dummy+Mailer
+ * Description: A Dummy Mailer for Mailster
+ * Version: 1.2.3
+ * Author: EverPress
+ * Author URI: https://mailster.co
+ * Text Domain: mailster-dummy-mailer
+ * License: GPLv2 or later
+ *
+ * @package Mailster_Dummy_Mailer
+ */
 
 namespace EverPress\Mailster\DummyMailer;
-
-/**
-Plugin Name: Mailster Dummy Mailer
-Requires Plugins: mailster
-Plugin URI: https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=plugin&utm_term=Dummy+Mailer
-Description: A Dummy Mailer for Mailster
-Version: 1.2.3
-Author: EverPress
-Author URI: https://mailster.co
-Text Domain: mailster-dummy-mailer
-License: GPLv2 or later
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
