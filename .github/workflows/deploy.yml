@@ -1,0 +1,44 @@
+name: Deploy to WordPress.org
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install and build
+        run: |
+          npm ci
+          npm run build --if-present
+
+      - name: Read project name
+        id: project
+        run: echo "name=$(jq -r '.name' package.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Create plugin zip
+        run: npm run plugin-zip
+
+      - name: Prepare deploy directory
+        run: unzip "${{ steps.project.outputs.name }}.zip" -d deploy
+
+      - name: WordPress Plugin Deploy
+        uses: 10up/action-wordpress-plugin-deploy@stable
+        with:
+          generate-zip: false
+        env:
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          BUILD_DIR: deploy/${{ steps.project.outputs.name }}

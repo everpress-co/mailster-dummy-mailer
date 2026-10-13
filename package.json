@@ -1,28 +1,41 @@
 {
 	"name": "mailster-dummy-mailer",
 	"version": "1.2.2",
+	"description": "Dummy mailer for Mailster \u2014 simulate sending without delivering real email.",
 	"author": "everpress",
 	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"mailer",
+		"dummymailer",
+		"mailster",
+		"newsletter",
+		"email"
+	],
+	"homepage": "https://mailster.co",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/evrpress/mailster-dummy-mailer.git"
+	},
+	"bugs": {
+		"url": "https://github.com/evrpress/mailster-dummy-mailer/issues"
+	},
+	"files": [
+		"*.php",
+		"classes"
+	],
+	"devDependencies": {
+		"@wordpress/env": "^11.17.0",
+		"@wordpress/scripts": "^36.1.0"
+	},
 	"scripts": {
 		"build": "wp-scripts build",
 		"format": "wp-scripts format",
+		"lint": "npm run lint:pkg-json",
+		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start"
-	},
-	"files": [
-		"build",
-		"src",
-		"vendor",
-		"includes",
-		"classes",
-		"assets",
-		"mailster-dummy-mailer.php"
-	],
-	"devDependencies": {
-		"@wordpress/env": "^10.13.0",
-		"@wordpress/scripts": "^30.6.0"
 	}
 }
