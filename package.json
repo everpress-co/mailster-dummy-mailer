@@ -1,7 +1,7 @@
 {
 	"name": "mailster-dummy-mailer",
-	"version": "1.2.2",
-	"description": "Dummy mailer for Mailster \u2014 simulate sending without delivering real email.",
+	"version": "1.2.3",
+	"description": "Dummy mailer for Mailster — simulate sending without delivering real email.",
 	"author": "everpress",
 	"license": "GPL-2.0-or-later",
 	"keywords": [
@@ -21,7 +21,8 @@
 	},
 	"files": [
 		"*.php",
-		"classes"
+		"classes",
+		"readme.txt"
 	],
 	"devDependencies": {
 		"@wordpress/env": "^11.17.0",
