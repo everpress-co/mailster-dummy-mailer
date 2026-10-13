@@ -18,8 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Minimum required Mailster version.
+ *
+ * @since 1.0
+ */
 define( 'MAILSTER_DUMMYMAILER_REQUIRED_VERSION', '4.0' );
+
+/**
+ * Delivery method identifier used in Mailster options.
+ *
+ * @since 1.0
+ */
 define( 'MAILSTER_DUMMYMAILER_ID', 'dummymailer' );
+
+/**
+ * Absolute path to the main plugin file.
+ *
+ * @since 1.2
+ */
 define( 'MAILSTER_DUMMYMAILER_FILE', __FILE__ );
 
 require_once __DIR__ . '/classes/dummymailer.class.php';

@@ -2,13 +2,45 @@
 
 namespace EverPress\Mailster\DummyMailer;
 
+/**
+ * Dummy delivery method that simulates sends and campaign statistics.
+ *
+ * @since 1.0
+ */
 class Mailer {
 
+	/**
+	 * Absolute filesystem path to the plugin directory.
+	 *
+	 * @since 1.0
+	 *
+	 * @var string
+	 */
 	private $plugin_path;
+
+	/**
+	 * URL to the plugin directory.
+	 *
+	 * @since 1.0
+	 *
+	 * @var string
+	 */
 	private $plugin_url;
 
+	/**
+	 * Singleton instance.
+	 *
+	 * @since 1.2.2
+	 *
+	 * @var Mailer|null
+	 */
 	private static $instance;
 
+	/**
+	 * Sets plugin paths and registers activation, deactivation, and init hooks.
+	 *
+	 * @since 1.0
+	 */
 	public function __construct() {
 
 		$this->plugin_path = plugin_dir_path( MAILSTER_DUMMYMAILER_FILE );
@@ -20,6 +52,13 @@ class Mailer {
 		add_action( 'init', array( &$this, 'init' ) );
 	}
 
+	/**
+	 * Returns the singleton instance of the mailer.
+	 *
+	 * @since 1.2.2
+	 *
+	 * @return Mailer Singleton instance.
+	 */
 	public static function instance() {
 
 		if ( ! self::$instance ) {
@@ -30,6 +69,14 @@ class Mailer {
 	}
 
 
+	/**
+	 * Seeds default Dummy Mailer options on plugin activation.
+	 *
+	 * @since 1.0
+	 *
+	 * @param bool $network_wide Whether the plugin is network-activated.
+	 * @return void
+	 */
 	public function activate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -57,6 +104,14 @@ class Mailer {
 
 
 
+	/**
+	 * Resets delivery method away from Dummy Mailer on deactivation.
+	 *
+	 * @since 1.0
+	 *
+	 * @param bool $network_wide Whether the plugin is network-deactivated.
+	 * @return void
+	 */
 	public function deactivate( $network_wide ) {
 
 		if ( function_exists( 'mailster' ) ) {
@@ -67,6 +122,13 @@ class Mailer {
 	}
 
 
+	/**
+	 * Boots Dummy Mailer hooks when Mailster is available and selected.
+	 *
+	 * @since 1.0
+	 *
+	 * @return void
+	 */
 	public function init() {
 
 		if ( ! function_exists( 'mailster' ) ) {
@@ -100,15 +162,14 @@ class Mailer {
 
 
 	/**
-	 * simulate function.
+	 * Replaces Mailster success strings when Dummy Mailer is active.
 	 *
-	 * simulates opens, clicks, unsubscribes and bounces
+	 * @since 1.0
 	 *
-	 * @access public
-	 * @param unknown $translated_text
-	 * @param unknown $untranslated_text
-	 * @param unknown $domain
-	 * @return void
+	 * @param string $translated_text   Translated text.
+	 * @param string $untranslated_text Text before translation.
+	 * @param string $domain            Text domain.
+	 * @return string Filtered translated text.
 	 */
 	public function gettext( $translated_text, $untranslated_text, $domain ) {
 
@@ -125,6 +186,13 @@ class Mailer {
 	}
 
 
+	/**
+	 * Shows an admin notice on newsletter screens when simulation is enabled.
+	 *
+	 * @since 1.0
+	 *
+	 * @return void
+	 */
 	public function admin_notice() {
 
 		$screen = get_current_screen();
@@ -140,6 +208,13 @@ class Mailer {
 	}
 
 
+	/**
+	 * Simulates opens, clicks, unsubscribes, and bounces for campaigns.
+	 *
+	 * @since 1.0
+	 *
+	 * @return bool|void False when simulation is disabled.
+	 */
 	public function simulate() {
 
 		if ( ! mailster_option( 'dummymailer_simulate' ) ) {
@@ -222,12 +297,26 @@ class Mailer {
 	}
 
 
+	/**
+	 * Returns a random IPv4 address during simulation, otherwise null.
+	 *
+	 * @since 1.0
+	 *
+	 * @return string|null Random IP while simulating, null otherwise.
+	 */
 	public function random_ip() {
 
 		return defined( 'MAILSTER_DUMMYMAILER_SIMULATE' ) ? rand( 1, 200 ) . '.' . rand( 1, 255 ) . '.' . rand( 1, 255 ) . '.' . rand( 1, 255 ) : null;
 	}
 
 
+	/**
+	 * Returns a random email client profile for simulated opens.
+	 *
+	 * @since 1.0
+	 *
+	 * @return object Client data with client, version, and type properties.
+	 */
 	public function get_user_client() {
 
 		$clients = array(
@@ -284,13 +373,12 @@ class Mailer {
 
 
 	/**
-	 * initsend function.
+	 * Initializes send settings via the mailster_initsend hook.
 	 *
-	 * uses mailster_initsend hook to set initial settings
+	 * @since 1.0
 	 *
-	 * @access public
+	 * @param object $mailobject Mailster mail object.
 	 * @return void
-	 * @param mixed $mailobject
 	 */
 	public function initsend( $mailobject ) {}
 
@@ -298,13 +386,12 @@ class Mailer {
 
 
 	/**
-	 * presend function.
+	 * Applies pre-send settings via the mailster_presend hook.
 	 *
-	 * uses the mailster_presend hook to apply setttings before each mail
+	 * @since 1.0
 	 *
-	 * @access public
+	 * @param object $mailobject Mailster mail object.
 	 * @return void
-	 * @param mixed $mailobject
 	 */
 	public function presend( $mailobject ) {
 
@@ -314,13 +401,12 @@ class Mailer {
 
 
 	/**
-	 * dosend function.
+	 * Simulates delivery success or failure via the mailster_dosend hook.
 	 *
-	 * uses the ymail_dosend hook and triggers the send
+	 * @since 1.0
 	 *
-	 * @access public
+	 * @param object $mailobject Mailster mail object.
 	 * @return void
-	 * @param mixed $mailobject
 	 */
 	public function dosend( $mailobject ) {
 
@@ -341,13 +427,12 @@ class Mailer {
 
 
 	/**
-	 * rand function.
+	 * Returns whether a random roll succeeds for the given percentage.
 	 *
-	 * add the delivery method to the options
+	 * @since 1.0
 	 *
-	 * @access public
-	 * @param mixed $p
-	 * @return void
+	 * @param float|int $p Success percentage from 0 to 100.
+	 * @return bool True when the roll succeeds.
 	 */
 	public function rand( $p ) {
 		return mt_rand( 0, 10000 ) <= ( $p * 100 );
@@ -355,13 +440,12 @@ class Mailer {
 
 
 	/**
-	 * subscriber_errors function.
+	 * Registers the Dummy Mailer subscriber error string with Mailster.
 	 *
-	 * adds a subscriber error
+	 * @since 1.0
 	 *
-	 * @access public
-	 * @param unknown $errors
-	 * @return $errors
+	 * @param string[] $errors Existing subscriber error messages.
+	 * @return string[] Updated error messages.
 	 */
 	public function subscriber_errors( $errors ) {
 		$errors[] = 'DummyMailer Subscriber Error';
@@ -370,13 +454,12 @@ class Mailer {
 
 
 	/**
-	 * delivery_method function.
+	 * Adds Dummy Mailer to the list of Mailster delivery methods.
 	 *
-	 * add the delivery method to the options
+	 * @since 1.0
 	 *
-	 * @access public
-	 * @param mixed $delivery_methods
-	 * @return void
+	 * @param array $delivery_methods Existing delivery methods.
+	 * @return array Updated delivery methods.
 	 */
 	public function delivery_method( $delivery_methods ) {
 		$delivery_methods[ MAILSTER_DUMMYMAILER_ID ] = 'DummyMailer';
@@ -385,11 +468,10 @@ class Mailer {
 
 
 	/**
-	 * deliverytab function.
+	 * Renders the Dummy Mailer settings tab in Mailster options.
 	 *
-	 * the content of the tab for the options
+	 * @since 1.0
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function deliverytab() {
@@ -439,13 +521,12 @@ class Mailer {
 
 
 	/**
-	 * verify_options function.
+	 * Verifies options when Mailster settings are saved.
 	 *
-	 * some verification if options are saved
+	 * @since 1.0
 	 *
-	 * @access public
-	 * @param mixed $options
-	 * @return void
+	 * @param array $options Mailster options being saved.
+	 * @return array Filtered options.
 	 */
 	public function verify_options( $options ) {
 
@@ -457,5 +538,3 @@ class Mailer {
 		return $options;
 	}
 }
-
-
