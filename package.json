@@ -13,13 +13,8 @@
 		"start": "wp-scripts start"
 	},
 	"files": [
-		"build",
-		"src",
-		"vendor",
-		"includes",
-		"classes",
-		"assets",
-		"*.php"
+		"*.php",
+		"classes"
 	],
 	"devDependencies": {
 		"@wordpress/env": "^10.13.0",
