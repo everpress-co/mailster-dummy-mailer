@@ -3,8 +3,8 @@
 Contributors: everpress, mailster, xaverb  
 Tags: mailer, dummymailer, mailster, newsletter, email  
 Requires at least: 6.0  
-Tested up to: 6.7  
-Stable tag: 1.2.2
+Tested up to: 7.1  
+Stable tag: 1.2.3
 License: GPLv2 or later
 
 ## Description
@@ -23,7 +23,7 @@ Please note the Dummy Mailer may use a lot of memory; having at least **256MB** 
 
 ## Changelog
 
-### Unreleased
+### 1.2.3
 
 - improved: WordPress.org readme layout and changelog workflow aligned with other Mailster addons
 - changed: documentation now states Mailster 4.0+ as the required Mailster version
