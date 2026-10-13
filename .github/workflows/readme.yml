@@ -15,10 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: evrpress/action-wordpress-plugin-readme-screenshot-update@main
+
       - name: Convert README.md to WordPress readme.txt
         uses: everpress-co/action-md2wp@main
-
-      - uses: evrpress/action-wordpress-plugin-readme-screenshot-update@main
 
       - name: WordPress.org plugin asset/readme update
         uses: evrpress/action-wordpress-plugin-asset-update@develop
