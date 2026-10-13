@@ -4,7 +4,7 @@ Contributors: everpress, mailster, xaverb
 Tags: mailster, newsletter, email, testing, delivery  
 Requires at least: 6.0  
 Tested up to: 7.1  
-Stable tag: 1.2.3  
+Stable tag: 1.3.0  
 License: GPLv2 or later
 
 Simulate Mailster newsletter sending and campaign stats for development and testing—no real emails delivered.
@@ -79,6 +79,12 @@ Simulation walks campaigns and subscribers to apply engagement events and can be
 For Mailster and this addon, see [mailster.co](https://mailster.co/?utm_campaign=wporg&utm_source=wordpress.org&utm_medium=readme&utm_term=Dummy+Mailer) and the [WordPress.org support forum](https://wordpress.org/support/plugin/mailster-dummy-mailer/).
 
 ## Changelog
+
+### 1.3.0
+
+- improved: documentation and installation guidance
+- improved: code structure and PHPDoc
+- changed: use `wp_rand` for simulation randomness
 
 ### 1.2.3
 
