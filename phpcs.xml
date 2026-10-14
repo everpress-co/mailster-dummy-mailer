@@ -42,7 +42,6 @@
 
 	<arg value="ps"/>
 	<arg name="extensions" value="php,css,scss/css"/>
-	<arg name="parallel" value="8"/>
 
 	<!-- Rules: WordPress Coding Standards -->
 	<!-- https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
