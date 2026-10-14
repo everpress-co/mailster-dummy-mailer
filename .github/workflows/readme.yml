@@ -8,6 +8,10 @@ on:
       - README.md
       - .wordpress-org/**
 
+concurrency:
+  group: wporg-svn
+  cancel-in-progress: false
+
 jobs:
   assets:
     name: Update Assets and Readme
